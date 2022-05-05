@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple">#FFBB86FC</color>
+    <color name="floralWhite">#FFFFFAF0</color>
+    <color name="ghostWhite">#FFF8F8FF</color>
+    <color name="ghostWhiteAlpha">#80F8F8FF</color>
+    <color name="springGreen">#FF00FF7F</color>
+    <color name="mintCream">#FFF5FFFA</color>
+    <color name="lightGray">#FFD3D3D3</color>
+    <color name="lightGrayAlpha">#80D3D3D3</color>
+    <color name="teal">#FF008080</color>
+    <color name="aqua">#FF00FFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+</resources>

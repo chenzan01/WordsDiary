@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Active" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">@dimen/font_size_12</item>
+        <item name="android:textColor">@color/springGreen</item>
+    </style>
+
+    <style name="InActive" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">@dimen/font_size_12</item>
+    </style>
+</resources>

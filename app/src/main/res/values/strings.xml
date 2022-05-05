@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">WordsDiary</string>
+    <string name="title_activity_bottom_nav">BottomNavActivity</string>
+    <string name="title_study">学习</string>
+    <string name="title_review">复习</string>
+    <string name="title_collect">收藏</string>
+    <string name="title_dashboard">仪表盘</string>
+    <string name="btn_startStudy">开始背词</string>
+    <string name="当前词书">当前词书：</string>
+    <string name="cet_6">CET-6</string>
+    <string name="总计单词">总计单词：</string>
+    <string name="_5817">5817</string>
+    <string name="已学单词">已学单词：</string>
+    <string name="_61">61</string>
+    <string name="今日未学">今日未学</string>
+    <string name="_20">20</string>
+    <string name="待复习">待复习</string>
+    <string name="_44">44</string>
+</resources>
