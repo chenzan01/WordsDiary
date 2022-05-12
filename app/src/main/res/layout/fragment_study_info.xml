@@ -25,13 +25,14 @@
         <LinearLayout
             android:id="@+id/layout_studyInfoFragment_book_front"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="170dp"
             android:orientation="vertical">
             <LinearLayout
                 android:id="@+id/layout_studyInfoFragment_book_info"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
@@ -43,8 +44,9 @@
                     android:contentDescription="@string/词书图片" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="150dp"
+                    android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
                     <!--总计单词数-->
@@ -61,7 +63,7 @@
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
                             android:text="@string/总计单词"
-                            android:textSize="16sp"
+                            android:textSize="12sp"
                             android:textColor="@color/black"
                             />
 
@@ -72,7 +74,7 @@
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
                             android:text="@string/_5817"
-                            android:textSize="16sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <!--已学单词数-->
@@ -89,7 +91,7 @@
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
                             android:text="@string/已学单词"
-                            android:textSize="16sp"
+                            android:textSize="12sp"
                             android:textColor="@color/black"
                             />
 
@@ -100,43 +102,37 @@
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
                             android:text="@string/_61"
-                            android:textSize="16sp"
+                            android:textSize="12sp"
                             />
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-            <!--进度条-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@color/lightGray"/>
+                <ImageButton
+                    android:id="@+id/imageButton_studyInfoFragment_book_front"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/ic_studyinfo_plus"/>
+            </LinearLayout>
         </LinearLayout>
 
         <!--背面-->
         <LinearLayout
             android:id="@+id/layout_studyInfoFragment_book_back"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="170dp"
             android:orientation="vertical"
-            android:background="@color/lightGray"
-            android:visibility="gone"/>
+            android:rotationY="180"
+            android:visibility="gone">
 
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/imageButton_studyInfoFragment_book_back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_studyinfo_back"/>
+        </LinearLayout>
 
-    <!--词书背面-->
-    <LinearLayout
-        android:id="@+id/layout_studyInfoFragment_bookBack"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:orientation="vertical"
-        android:background="@drawable/btn_corner_studyinfo"
-        android:visibility="gone"
-        tools:ignore="MissingConstraints">
+
+
 
     </LinearLayout>
 
