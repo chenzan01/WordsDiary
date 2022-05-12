@@ -7,110 +7,139 @@
     android:background="@drawable/ic_studyinfo_fragment_bg"
     tools:context=".fragment.study.studyInfo.StudyInfoFragment">
 
-    <!--词书-->
+    <!--词书卡片-->
     <LinearLayout
         android:id="@+id/layout_studyInfoFragment_book"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/btn_corner_studyinfo"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/layout_studyInfoFragment_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!--词书信息-->
+        <!--正面-->
         <LinearLayout
-            android:id="@+id/layout_studyInfoFragment_book_info"
-            android:layout_width="wrap_content"
+            android:id="@+id/layout_studyInfoFragment_book_front"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-
-            <!--当前词书: -->
-            <TextView
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/layout_studyInfoFragment_book_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/当前词书"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                />
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-            <!--词书名-->
-            <TextView
-                android:id="@+id/text_studyInfoFragment_currentBook"
+                <ImageView
+                    android:id="@+id/image_studyInfoFragment_book_info"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/ic_book_cet4"
+                    android:contentDescription="@string/词书图片" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+                    <!--总计单词数-->
+                    <LinearLayout
+                        android:id="@+id/layout_studyInfoFragment_total_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:orientation="horizontal">
+
+                        <!--总计单词: -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="@string/总计单词"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            />
+
+                        <!--总计单词数-->
+                        <TextView
+                            android:id="@+id/text_studyInfoFragment_total_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="@string/_5817"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <!--已学单词数-->
+                    <LinearLayout
+                        android:id="@+id/layout_studyInfoFragment_studied_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginStart="20dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="@string/已学单词"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            />
+
+                        <!--每日单词翻译-->
+                        <TextView
+                            android:id="@+id/text_studyInfoFragment_studied_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="@string/_61"
+                            android:textSize="16sp"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--进度条-->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/cet_6"
-                android:textSize="20sp"
-                android:textColor="@color/black" />
+                android:layout_height="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/lightGray"/>
         </LinearLayout>
 
-        <!--总计单词数-->
+        <!--背面-->
         <LinearLayout
-            android:id="@+id/layout_studyInfoFragment_total_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="10dp"
-            android:orientation="horizontal">
-
-            <!--总计单词: -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/总计单词"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                />
-
-            <!--总计单词数-->
-            <TextView
-                android:id="@+id/text_studyInfoFragment_total_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/_5817"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!--已学单词数-->
-        <LinearLayout
-            android:id="@+id/layout_studyInfoFragment_studied_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginStart="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/已学单词"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                />
-
-            <!--每日单词翻译-->
-            <TextView
-                android:id="@+id/text_studyInfoFragment_studied_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/_61"
-                android:textSize="16sp"
-                />
-        </LinearLayout>
+            android:id="@+id/layout_studyInfoFragment_book_back"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:background="@color/lightGray"
+            android:visibility="gone"/>
 
     </LinearLayout>
+
+    <!--词书背面-->
+    <LinearLayout
+        android:id="@+id/layout_studyInfoFragment_bookBack"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:background="@drawable/btn_corner_studyinfo"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints">
+
+    </LinearLayout>
+
 
     <!--每日信息-->
     <LinearLayout

@@ -77,8 +77,8 @@ public class StudyFragment extends Fragment {
         String s = "test";
         StudyFragmentDirections.ActionNavigationStudyToStudyInfoFragment action;
         action = StudyFragmentDirections.actionNavigationStudyToStudyInfoFragment();
-        action.setTestString(s);Navigation.findNavController(view).navigate(action);
-
+        action.setTestString(s);
+        Navigation.findNavController(view).navigate(action);
     };
 
 

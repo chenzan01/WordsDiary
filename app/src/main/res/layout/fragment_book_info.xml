@@ -3,11 +3,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.study.bookInfo.BookInfoFragment">
 
     <TextView
+        android:id="@+id/textview_currentBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/layout_bookInfoFragment_currentBook"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:text="正在学习: CET-4" />
+
+    <!--词书详情-->
+    <LinearLayout
+        android:id="@+id/layout_bookInfoFragment_currentBook"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:background="@color/lightGray"
+        app:layout_constraintTop_toBottomOf="@+id/textview_currentBook"
+        app:layout_constraintBottom_toTopOf="@+id/textview_allBook"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textview_allBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/layout_bookInfoFragment_currentBook"
+        app:layout_constraintBottom_toTopOf="@+id/layout_bookInfoFragment_allBook"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:textSize="26sp"
+        android:textColor="@color/black"
+        android:text="词书库" />
+
+    <!--词书详情-->
+    <LinearLayout
+        android:id="@+id/layout_bookInfoFragment_allBook"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:background="@color/lightGray"
+        android:layout_marginEnd="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/textview_allBook"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

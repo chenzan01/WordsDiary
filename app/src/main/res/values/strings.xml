@@ -7,7 +7,7 @@
     <string name="title_dashboard">仪表盘</string>
     <string name="btn_startStudy">开始背词</string>
     <string name="当前词书">当前词书：</string>
-    <string name="cet_6">CET-6</string>
+    <string name="cet_4">CET-4</string>
     <string name="总计单词">总计单词：</string>
     <string name="_5817">5817</string>
     <string name="已学单词">已学单词：</string>
@@ -16,4 +16,5 @@
     <string name="_20">20</string>
     <string name="待复习">待复习</string>
     <string name="_44">44</string>
+    <string name="词书图片">词书图片</string>
 </resources>
