@@ -1,19 +1,16 @@
-package com.zanchen.develop.wordsdiary.fragment.study.studyInfo;
+package com.zanchen.develop.wordsdiary.util;
 import android.animation.Animator;
-        import android.animation.AnimatorListenerAdapter;
-        import android.animation.AnimatorSet;
-        import android.animation.ObjectAnimator;
-        import android.animation.ValueAnimator;
-        import android.content.Context;
-        import android.content.res.Configuration;
-        import android.util.DisplayMetrics;
-        import android.util.Property;
-        import android.view.Display;
-        import android.view.MotionEvent;
-        import android.view.View;
-        import android.view.WindowManager;
-        import android.view.animation.CycleInterpolator;
-
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.util.DisplayMetrics;
+import android.util.Property;
+import android.view.Display;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.WindowManager;
 import androidx.annotation.IntDef;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
@@ -23,12 +20,10 @@ import java.util.ArrayList;
  * 旋转工具类
  * Created by Yahya Bayramoglu on 01/12/15.
  */
-public class Rotatable implements View.OnTouchListener {
+public class RotatableUtil implements View.OnTouchListener {
 
     private static final int NULL_INT = -1;
-    private final int FIT_ANIM_TIME = 300;
 
-    public static final int DEFAULT_ROTATE_ANIM_TIME = 500;
     public static final int ROTATE_BOTH = 0;
     public static final int ROTATE_X = 1;
     public static final int ROTATE_Y = 2;
@@ -40,40 +35,27 @@ public class Rotatable implements View.OnTouchListener {
     public static final int FRONT_VIEW = 3;
     public static final int BACK_VIEW = 4;
 
-    @IntDef({FRONT_VIEW, BACK_VIEW})
-    public @interface Side {
-    }
-
-    private RotationListener rotationListener;
-    private View rootView, frontView, backView;
+    private final RotationListener rotationListener;
+    private final View rootView;
+    private View frontView;
+    private View backView;
 
     private boolean touchEnable = true;
-    private boolean shouldSwapViews = false;
+    private final boolean shouldSwapViews;
 
-    private int rotation;
+    private final int rotation;
     private int screenWidth = NULL_INT, screenHeight = NULL_INT;
     private int currentVisibleView = FRONT_VIEW;
 
-    private float rotationCount;
-    private float rotationDistance;
+    private final float rotationCount;
+    private final float rotationDistance;
     private float oldX, oldY, currentX, currentY;
     private float currentXRotation = 0, currentYRotation = 0;
     private float maxDistanceX = NULL_INT, maxDistanceY = NULL_INT;
-    private float defaultPivotX = NULL_INT, defaultPivotY = NULL_INT;
 
-    private Rotatable(Builder builder) {
+    private RotatableUtil(Builder builder) {
         this.rootView = builder.root;
-        this.defaultPivotX = rootView.getPivotX();
-        this.defaultPivotY = rootView.getPivotY();
         this.rotationListener = builder.listener;
-
-        if (builder.pivotX != NULL_INT) {
-            this.rootView.setPivotX(builder.pivotX);
-        }
-
-        if (builder.pivotY != NULL_INT) {
-            this.rootView.setPivotY(builder.pivotY);
-        }
 
         if (builder.frontId != NULL_INT) {
             this.frontView = rootView.findViewById(builder.frontId);
@@ -92,29 +74,6 @@ public class Rotatable implements View.OnTouchListener {
     }
 
     /**
-     * This method needs to be call, if only you need to reset and
-     * rebuild a view as rotatable with different configurations
-     */
-    public void drop() {
-        rootView.setPivotX(defaultPivotX);
-        rootView.setPivotY(defaultPivotY);
-        rootView.setOnTouchListener(null);
-        rootView = null;
-        frontView = null;
-        backView = null;
-    }
-
-    /**
-     * You can specify rotation direction as axis X, Y or BOTH
-     */
-    public void setDirection(@Direction int direction) {
-        if (!isRotationValid(direction)) {
-            throw new IllegalArgumentException("Cannot specify given value as rotation direction!");
-        }
-        this.rotation = direction;
-    }
-
-    /**
      * You may need to enable / disable touch interaction at some point,
      * so it is possible to do it so anytime by rotatable object
      */
@@ -122,60 +81,6 @@ public class Rotatable implements View.OnTouchListener {
         this.touchEnable = enable;
     }
 
-    /**
-     * To determine rotatable object is currently touchable or not
-     */
-    public boolean isTouchEnable() {
-        return touchEnable;
-    }
-
-    /**
-     * If your application can be used multi orientated, then you have to declare
-     * orientation changes to rotatable object, so it can recalculate its maxDistances.
-     * <p>
-     * You only need to inform rotatable object about orientation changes, when you specified
-     * {@link Builder#rotationCount(float)} or {@link Builder#rotationDistance(float)}
-     */
-    public void orientationChanged(int newOrientation) {
-        if (screenWidth == NULL_INT) {
-            calculateScreenDimensions();
-        }
-        measureScreenUpToOrientation(newOrientation);
-
-        // reset maxDistances values to recalculate them
-        maxDistanceX = NULL_INT;
-        maxDistanceY = NULL_INT;
-    }
-
-    /**
-     * Call this method to reveal rotatable view's existence
-     */
-    public void takeAttention() {
-        ObjectAnimator animatorX = ObjectAnimator.ofFloat(rootView, View.ROTATION_X, 10);
-        ObjectAnimator animatorY = ObjectAnimator.ofFloat(rootView, View.ROTATION_Y, -10);
-        AnimatorSet set = new AnimatorSet();
-        set.setDuration(DEFAULT_ROTATE_ANIM_TIME);
-        set.setInterpolator(new CycleInterpolator(0.8f));
-        set.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-
-                rootView.animate().rotationX(0).rotationY(0).setDuration(FIT_ANIM_TIME)
-                        .setInterpolator(new FastOutSlowInInterpolator()).start();
-            }
-        });
-        set.playTogether(animatorX, animatorY);
-        set.start();
-    }
-
-    /**
-     * Animate rotatable object with given direction and degree also possible
-     * to set duration and a listener with other derivation of this method
-     */
-    public void rotate(int direction, float degree) {
-        rotate(direction, degree, DEFAULT_ROTATE_ANIM_TIME);
-    }
 
     public void rotate(int direction, float degree, int duration) {
         rotate(direction, degree, duration, null);
@@ -212,56 +117,13 @@ public class Rotatable implements View.OnTouchListener {
         animatorSet.start();
     }
 
-    /**
-     * Rotates once around in given direction
-     */
-    public void rotateOnce() {
-        float toDegree;
-        if (rotation == ROTATE_X) {
-            toDegree = rootView.getRotationX();
-        } else if (rotation == ROTATE_Y) {
-            toDegree = rootView.getRotationY();
-        } else {
-            toDegree = rootView.getRotation();
-        }
-        toDegree += 180;
-        rotate(rotation, toDegree);
-    }
-
-    /**
-     * Returns true if currently frontView is visible, false otherwise
-     */
-    public boolean isFront() {
-        return getCurrentVisibleView() == FRONT_VIEW;
-    }
-
-    /**
-     * Returns currentVisibleView value as {@link Side}
-     */
-    public
-    @Side
-    int getCurrentVisibleView() {
-        return currentVisibleView;
-    }
-
-    public float getCurrentXRotation() {
-        return currentXRotation;
-    }
-
-    public float getCurrentYRotation() {
-        return currentYRotation;
-    }
-
     private Animator getAnimatorForProperty(Property property, final int direction, float degree) {
         ObjectAnimator animator = ObjectAnimator.ofFloat(rootView, property, degree);
 
         if (shouldSwapViews) {
-            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    updateRotationValues(false);
-                    swapViews(direction);
-                }
+            animator.addUpdateListener(animation -> {
+                updateRotationValues(false);
+                swapViews(direction);
             });
         }
         return animator;
@@ -276,6 +138,7 @@ public class Rotatable implements View.OnTouchListener {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (touchEnable) {
@@ -381,27 +244,6 @@ public class Rotatable implements View.OnTouchListener {
         screenHeight = metrics.heightPixels;
     }
 
-    private void measureScreenUpToOrientation(int screenOrientation) {
-        int tempWidth = screenWidth, tempHeight = screenHeight;
-        if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-            /**
-             * If screenOrientation is landscape, then width will have a larger value than height
-             */
-            screenWidth = Math.max(tempWidth, tempHeight);
-            screenHeight = Math.min(tempWidth, tempHeight);
-        } else {
-            /**
-             * If screenOrientation:
-             * is portrait, then width will have a smaller value than height
-             * is square, then width and height will be same
-             * is unknown, then unknown to rotatable as well
-             * so either way...
-             */
-            screenWidth = Math.min(tempWidth, tempHeight);
-            screenHeight = Math.max(tempWidth, tempHeight);
-        }
-    }
-
     private boolean shouldRotateX() {
         return rotation == ROTATE_X || rotation == ROTATE_BOTH;
     }
@@ -488,6 +330,7 @@ public class Rotatable implements View.OnTouchListener {
 
     private void fitRotation() {
         AnimatorSet animatorSet = new AnimatorSet();
+        int FIT_ANIM_TIME = 300;
         animatorSet.setDuration(FIT_ANIM_TIME);
         animatorSet.setInterpolator(new FastOutSlowInInterpolator());
 
@@ -541,26 +384,16 @@ public class Rotatable implements View.OnTouchListener {
 
     public static class Builder {
 
-        private View root;
+        private final View root;
         private RotationListener listener;
         private int rotation = NULL_INT;
         private int frontId = NULL_INT;
         private int backId = NULL_INT;
-        private int pivotX = NULL_INT;
-        private int pivotY = NULL_INT;
         private float rotationCount = NULL_INT;
-        private float rotationDistance = NULL_INT;
+        private final float rotationDistance = NULL_INT;
 
         public Builder(View viewToRotate) {
             this.root = viewToRotate;
-        }
-
-        /**
-         * This listener will receive current rotation values of given view
-         */
-        public Builder listener(RotationListener listener) {
-            this.listener = listener;
-            return this;
         }
 
         /**
@@ -586,59 +419,16 @@ public class Rotatable implements View.OnTouchListener {
          * irrelevant to its position or touch distance
          */
         public Builder rotationCount(float count) {
-            if (rotationDistance != NULL_INT) {
-                throw new IllegalArgumentException("You cannot specify both distance and count for rotation limitation.");
-            }
 
             this.rotationCount = count;
             return this;
         }
 
-        /**
-         * This method provides view to rotate once in given distance,
-         * note that it won't rotate full if touch distance is not enough
-         * but it may still fit the rotation. If you want to ensure rotation gets completed
-         * see {@link #rotationCount(float}
-         */
-        public Builder rotationDistance(float distance) {
-            if (rotationCount != NULL_INT) {
-                throw new IllegalArgumentException("You cannot specify both distance and count for rotation limitation.");
-            }
-
-            this.rotationDistance = distance;
-            return this;
-        }
-
-        /**
-         * Consider not to change pivot values because view may out of its bounders and get invisible.
-         */
-        public Builder pivot(int pivotX, int pivotY) {
-            this.pivotX = pivotX;
-            this.pivotY = pivotY;
-            return this;
-        }
-
-        /**
-         * Consider not to change pivot values because view may out of its bounders and get invisible.
-         */
-        public Builder pivotX(int pivotX) {
-            this.pivotX = pivotX;
-            return this;
-        }
-
-        /**
-         * Consider not to change pivot values because view may out of its bounders and get invisible.
-         */
-        public Builder pivotY(int pivotY) {
-            this.pivotY = pivotY;
-            return this;
-        }
-
-        public Rotatable build() {
+        public RotatableUtil build() {
             if (rotation == NULL_INT || !isRotationValid(rotation)) {
                 throw new IllegalArgumentException("You must specify a direction!");
             }
-            return new Rotatable(this);
+            return new RotatableUtil(this);
         }
 
     }
