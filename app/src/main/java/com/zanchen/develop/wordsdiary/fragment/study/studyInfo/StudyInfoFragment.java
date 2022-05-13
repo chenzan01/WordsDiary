@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.zanchen.develop.wordsdiary.databinding.FragmentStudyInfoBinding;
 import com.zanchen.develop.wordsdiary.util.RotatableUtil;
@@ -25,14 +28,18 @@ public class StudyInfoFragment extends Fragment {
 
     private int shortAnimationDuration;
 
-    private LinearLayout mCurrentBook;
-    private LinearLayout mCurrentBookFront;
-    private LinearLayout mCurrentBookBack;
-    private LinearLayout mNeedStudy;
-    private LinearLayout mNeedReview;
+    private LinearLayout mLayoutCurrentBook;
+    private LinearLayout mLayoutCurrentBookFront;
+    private LinearLayout mLayoutCurrentBookBack;
+    private LinearLayout mLayoutNeedStudy;
+    private LinearLayout mLayoutNeedReview;
 
-    private ImageButton imageBtnChangeBookBack;
-    private ImageButton imageBtnChangeBookFront;
+    private ImageButton mImageBtnChangeBookBack;
+    private ImageButton mImageBtnChangeBookFront;
+
+    private TextView mTextCurrentBook;
+    private TextView mTextTotalAmount;
+    private TextView mTextStudyAmount;
 
 
 
@@ -43,21 +50,30 @@ public class StudyInfoFragment extends Fragment {
         com.zanchen.develop.wordsdiary.databinding.FragmentStudyInfoBinding binding =
                 FragmentStudyInfoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        mCurrentBook = binding.layoutStudyInfoFragmentBook;
-        mCurrentBook.setOnClickListener(onClickCurrentBook);
-        mCurrentBookFront = binding.layoutStudyInfoFragmentBookFront;
-        mCurrentBookBack = binding.layoutStudyInfoFragmentBookBack;
-        mNeedStudy = binding.layoutStudyInfoFragmentStudy;
-        mNeedStudy.setOnClickListener(onClickNeedStudy);
-        mNeedReview = binding.layoutStudyInfoFragmentReview;
-        mNeedReview.setOnClickListener(onClickNeedReview);
-        imageBtnChangeBookFront = binding.imageButtonStudyInfoFragmentBookFront;
-        imageBtnChangeBookBack = binding.imageButtonStudyInfoFragmentBookBack;
-        imageBtnChangeBookFront.setOnClickListener(onClickChangeBookCard);
-        imageBtnChangeBookBack.setOnClickListener(onClickChangeBookCard);
+        //绑定控件
+        mLayoutCurrentBook = binding.layoutStudyInfoFragmentBook;
+        mLayoutCurrentBookFront = binding.layoutStudyInfoFragmentBookFront;
+        mLayoutCurrentBookBack = binding.layoutStudyInfoFragmentBookBack;
+        mLayoutNeedStudy = binding.layoutStudyInfoFragmentStudy;
+        mLayoutNeedReview = binding.layoutStudyInfoFragmentReview;
 
-        shortAnimationDuration = getResources().getInteger(
-                android.R.integer.config_longAnimTime);
+        mImageBtnChangeBookFront = binding.imageButtonStudyInfoFragmentBookFront;
+        mImageBtnChangeBookBack = binding.imageButtonStudyInfoFragmentBookBack;
+
+        mTextCurrentBook = binding.textStudyInfoFragmentCurrentBook;
+        mTextTotalAmount = binding.textStudyInfoFragmentTotalAmount;
+        mTextStudyAmount = binding.textStudyInfoFragmentStudyAmount;
+
+        //响应事件
+        mLayoutCurrentBook.setOnClickListener(onClickCurrentBook);
+        mLayoutNeedStudy.setOnClickListener(onClickNeedStudy);
+        mLayoutNeedReview.setOnClickListener(onClickNeedReview);
+        mImageBtnChangeBookFront.setOnClickListener(onClickChangeBookCard);
+        mImageBtnChangeBookBack.setOnClickListener(onClickChangeBookCard);
+
+        shortAnimationDuration = getResources().getInteger(android.R.integer.config_longAnimTime);
+        //初始化数据
+        initData();
         return root;
     }
 
@@ -65,6 +81,15 @@ public class StudyInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG,"s = " + StudyInfoFragmentArgs.fromBundle(getArguments()).getTestString());
+    }
+
+    private void initData(){
+        StudyInfoViewModel studyInfoViewModel = new ViewModelProvider(this).get(StudyInfoViewModel.class);
+        final MutableLiveData<String> bookName = (MutableLiveData<String>)studyInfoViewModel.getCurrentBookName();
+        bookName.observe(getViewLifecycleOwner(),s -> mTextCurrentBook.setText(s));
+
+
+
     }
 
     public View.OnClickListener onClickCurrentBook = view -> {
@@ -100,9 +125,9 @@ public class StudyInfoFragment extends Fragment {
      * 翻牌
      */
     public void cardTurnover() {
-        if (View.VISIBLE == imageBtnChangeBookFront.getVisibility()) {
-            RotatableUtil rotatableUtil = new RotatableUtil.Builder(mCurrentBook)
-                    .sides(imageBtnChangeBookFront.getId(),imageBtnChangeBookBack.getId())
+        if (View.VISIBLE == mImageBtnChangeBookFront.getVisibility()) {
+            RotatableUtil rotatableUtil = new RotatableUtil.Builder(mLayoutCurrentBook)
+                    .sides(mImageBtnChangeBookFront.getId(),mImageBtnChangeBookBack.getId())
                     .direction(RotatableUtil.ROTATE_Y)
                     .rotationCount(1)
                     .build();
@@ -110,9 +135,9 @@ public class StudyInfoFragment extends Fragment {
             rotatableUtil.rotate(RotatableUtil.ROTATE_Y, -180, 1000);
             turnBookCardToBack(true);
 
-        } else if (View.VISIBLE == imageBtnChangeBookBack.getVisibility()) {
-            RotatableUtil rotatableUtil = new RotatableUtil.Builder(mCurrentBook)
-                    .sides(imageBtnChangeBookFront.getId(),imageBtnChangeBookBack.getId())
+        } else if (View.VISIBLE == mImageBtnChangeBookBack.getVisibility()) {
+            RotatableUtil rotatableUtil = new RotatableUtil.Builder(mLayoutCurrentBook)
+                    .sides(mImageBtnChangeBookFront.getId(),mImageBtnChangeBookBack.getId())
                     .direction(RotatableUtil.ROTATE_Y)
                     .rotationCount(1)
                     .build();
@@ -125,15 +150,15 @@ public class StudyInfoFragment extends Fragment {
 
     private void turnBookCardToBack(boolean direction){
         if(direction){
-            mCurrentBookFront.setVisibility(View.GONE);
-            mCurrentBookBack.setAlpha(0f);
-            mCurrentBookBack.setVisibility(View.VISIBLE);
-            mCurrentBookBack.animate().alpha(1f).setDuration(shortAnimationDuration).setListener(null);
+            mLayoutCurrentBookFront.setVisibility(View.GONE);
+            mLayoutCurrentBookBack.setAlpha(0f);
+            mLayoutCurrentBookBack.setVisibility(View.VISIBLE);
+            mLayoutCurrentBookBack.animate().alpha(1f).setDuration(shortAnimationDuration).setListener(null);
         }else {
-            mCurrentBookBack.setVisibility(View.GONE);
-            mCurrentBookFront.setAlpha(0f);
-            mCurrentBookFront.setVisibility(View.VISIBLE);
-            mCurrentBookFront.animate().alpha(1f).setDuration(shortAnimationDuration).setListener(null);
+            mLayoutCurrentBookBack.setVisibility(View.GONE);
+            mLayoutCurrentBookFront.setAlpha(0f);
+            mLayoutCurrentBookFront.setVisibility(View.VISIBLE);
+            mLayoutCurrentBookFront.animate().alpha(1f).setDuration(shortAnimationDuration).setListener(null);
         }
     }
 

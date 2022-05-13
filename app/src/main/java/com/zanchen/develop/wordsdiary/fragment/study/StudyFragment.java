@@ -45,8 +45,10 @@ public class StudyFragment extends Fragment {
         dailyWords = binding.textStudyFragmentDailyWords;
         dailyWordsTranslate = binding.textStudyFragmentDailyWordsTranslate;
         dailyWordsButton = binding.btnStudyFragment;
-        //初始化View
-        initView();
+        //按钮响应事件
+        dailyWordsButton.setOnClickListener(onclick);
+        //初始化数据
+        initData();
         return root;
     }
 
@@ -55,7 +57,7 @@ public class StudyFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    private void initView(){
+    private void initData(){
         if(dailyWords == null && dailyWordsTranslate == null && dailyWordsButton == null){
             Log.d(TAG,"init Error!");
             return;
@@ -67,8 +69,6 @@ public class StudyFragment extends Fragment {
         //获取ViewModel中的每日单词翻译
         final MutableLiveData<String> translate = (MutableLiveData<String>)studyViewModel.getDailyWordsTranslate();
         translate.observe(getViewLifecycleOwner(), s -> dailyWordsTranslate.setText(s));
-        //按钮响应事件
-        dailyWordsButton.setOnClickListener(onclick);
 
     }
 

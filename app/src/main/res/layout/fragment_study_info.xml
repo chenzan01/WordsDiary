@@ -49,12 +49,42 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
+
+                    <!--当前词书名-->
+                    <LinearLayout
+                        android:id="@+id/layout_studyInfoFragment_currentBook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:orientation="horizontal">
+
+                        <!--当前词书: -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="@string/当前词书"
+                            android:textSize="12sp"
+                            android:textColor="@color/black"
+                            />
+
+                        <!--当前词书名-->
+                        <TextView
+                            android:id="@+id/text_studyInfoFragment_currentBook"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="@string/defaultData"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
                     <!--总计单词数-->
                     <LinearLayout
                         android:id="@+id/layout_studyInfoFragment_total_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="10dp"
                         android:orientation="horizontal">
 
                         <!--总计单词: -->
@@ -69,21 +99,21 @@
 
                         <!--总计单词数-->
                         <TextView
-                            android:id="@+id/text_studyInfoFragment_total_info"
+                            android:id="@+id/text_studyInfoFragment_totalAmount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
-                            android:text="@string/_5817"
+                            android:text="@string/defaultData"
                             android:textSize="12sp" />
                     </LinearLayout>
 
                     <!--已学单词数-->
                     <LinearLayout
-                        android:id="@+id/layout_studyInfoFragment_studied_info"
+                        android:id="@+id/layout_studyInfoFragment_studyAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="10dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -97,11 +127,11 @@
 
                         <!--每日单词翻译-->
                         <TextView
-                            android:id="@+id/text_studyInfoFragment_studied_info"
+                            android:id="@+id/text_studyInfoFragment_studyAmount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
-                            android:text="@string/_61"
+                            android:text="@string/defaultData"
                             android:textSize="12sp"
                             />
                     </LinearLayout>
@@ -180,7 +210,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
                 android:textAlignment="center"
-                android:text="@string/_20"
+                android:text="@string/defaultData"
                 android:textSize="16sp"
                 />
         </LinearLayout>
@@ -220,7 +250,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
                 android:textAlignment="center"
-                android:text="@string/_44"
+                android:text="@string/defaultData"
                 android:textSize="16sp"
                 />
         </LinearLayout>
