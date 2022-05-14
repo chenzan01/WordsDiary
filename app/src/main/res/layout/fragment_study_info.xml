@@ -60,7 +60,7 @@
 
                         <!--当前词书: -->
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
                             android:text="@string/当前词书"
@@ -71,7 +71,7 @@
                         <!--当前词书名-->
                         <TextView
                             android:id="@+id/text_studyInfoFragment_currentBook"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
                             android:text="@string/defaultData"
@@ -89,7 +89,7 @@
 
                         <!--总计单词: -->
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
                             android:text="@string/总计单词"
@@ -100,7 +100,7 @@
                         <!--总计单词数-->
                         <TextView
                             android:id="@+id/text_studyInfoFragment_totalAmount"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
                             android:text="@string/defaultData"
@@ -117,7 +117,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
                             android:text="@string/已学单词"
@@ -128,7 +128,7 @@
                         <!--每日单词翻译-->
                         <TextView
                             android:id="@+id/text_studyInfoFragment_studyAmount"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
                             android:text="@string/defaultData"

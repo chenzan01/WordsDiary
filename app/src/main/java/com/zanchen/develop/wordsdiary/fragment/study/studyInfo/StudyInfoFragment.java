@@ -85,8 +85,16 @@ public class StudyInfoFragment extends Fragment {
 
     private void initData(){
         StudyInfoViewModel studyInfoViewModel = new ViewModelProvider(this).get(StudyInfoViewModel.class);
-        final MutableLiveData<String> bookName = (MutableLiveData<String>)studyInfoViewModel.getCurrentBookName();
-        bookName.observe(getViewLifecycleOwner(),s -> mTextCurrentBook.setText(s));
+        studyInfoViewModel.initViewModel();
+        //从数据库获取数据
+        final MutableLiveData<String> currentBook;
+        mTextCurrentBook.setText("CET-4词汇");
+
+        final MutableLiveData<String> totalAmount = (MutableLiveData<String>)studyInfoViewModel.getTotalAmount();
+        totalAmount.observe(getViewLifecycleOwner(),s -> mTextTotalAmount.setText(s));
+
+        final MutableLiveData<String> studyAmount = (MutableLiveData<String>)studyInfoViewModel.getStudyAmount();
+        studyAmount.observe(getViewLifecycleOwner(),s -> mTextStudyAmount.setText(s));
 
 
 
