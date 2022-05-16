@@ -12,5 +12,8 @@
     <color name="aqua">#FF00FFFF</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="whiteAlpha">#80FFFFFF</color>
+    <color name="windowBackground">#FFF4F4F4</color>
+    <color name="transparent">#00FFFFFF</color>
 
 </resources>

@@ -24,6 +24,9 @@ public class StudyInfoFragment extends Fragment {
 
     private static final String TAG = "StudyInfoFragment";
 
+    //定义binding
+    private FragmentStudyInfoBinding binding;
+
     private StudyInfoViewModel mViewModel;
 
     private int shortAnimationDuration;
@@ -47,8 +50,7 @@ public class StudyInfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         //初始化binding
-        com.zanchen.develop.wordsdiary.databinding.FragmentStudyInfoBinding binding =
-                FragmentStudyInfoBinding.inflate(inflater, container, false);
+        binding = FragmentStudyInfoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         //绑定控件
         mLayoutCurrentBook = binding.layoutStudyInfoFragmentBook;
@@ -84,16 +86,16 @@ public class StudyInfoFragment extends Fragment {
     }
 
     private void initData(){
-        StudyInfoViewModel studyInfoViewModel = new ViewModelProvider(this).get(StudyInfoViewModel.class);
-        studyInfoViewModel.initViewModel();
+        mViewModel = new ViewModelProvider(this).get(StudyInfoViewModel.class);
+        mViewModel.initViewModel();
         //从数据库获取数据
         final MutableLiveData<String> currentBook;
         mTextCurrentBook.setText("CET-4词汇");
 
-        final MutableLiveData<String> totalAmount = (MutableLiveData<String>)studyInfoViewModel.getTotalAmount();
+        final MutableLiveData<String> totalAmount = (MutableLiveData<String>)mViewModel.getTotalAmount();
         totalAmount.observe(getViewLifecycleOwner(),s -> mTextTotalAmount.setText(s));
 
-        final MutableLiveData<String> studyAmount = (MutableLiveData<String>)studyInfoViewModel.getStudyAmount();
+        final MutableLiveData<String> studyAmount = (MutableLiveData<String>)mViewModel.getStudyAmount();
         studyAmount.observe(getViewLifecycleOwner(),s -> mTextStudyAmount.setText(s));
 
 
