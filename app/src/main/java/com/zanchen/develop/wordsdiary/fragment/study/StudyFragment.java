@@ -9,7 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +25,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.zanchen.develop.wordsdiary.databinding.FragmentStudyBinding;
 import com.zanchen.develop.wordsdiary.fragment.study.studyInfo.StudyInfoFragment;
+import com.zanchen.develop.wordsdiary.util.translateUtil.TranslateUtil;
 
 public class StudyFragment extends Fragment {
 
@@ -29,9 +33,12 @@ public class StudyFragment extends Fragment {
     //定义binding
     private FragmentStudyBinding binding;
     //定义控件
+    private LinearLayout dailyWordsLayout;
     private TextView dailyWords;
     private TextView dailyWordsTranslate;
     private Button dailyWordsButton;
+    private SearchView searchView;
+    //定义上下文
     private Context mContext;
 
 
@@ -42,11 +49,17 @@ public class StudyFragment extends Fragment {
         //获取fragment上下文
         mContext = getContext();
         //绑定UI组件
+        dailyWordsLayout = binding.layoutStudyFragmentDailyWords;
         dailyWords = binding.textStudyFragmentDailyWords;
         dailyWordsTranslate = binding.textStudyFragmentDailyWordsTranslate;
         dailyWordsButton = binding.btnStudyFragment;
+        searchView = binding.searchViewDictionary;
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint("你想查询的单词");
         //按钮响应事件
-        dailyWordsButton.setOnClickListener(onclick);
+        dailyWordsLayout.setOnClickListener(dailyWordsLayoutOnClick);
+        dailyWordsButton.setOnClickListener(dailyWordsButtonOnclick);
+        searchView.setOnQueryTextListener(onQueryText);
         //初始化数据
         initData();
         return root;
@@ -72,13 +85,37 @@ public class StudyFragment extends Fragment {
 
     }
 
-    public View.OnClickListener onclick = view -> {
+    public View.OnClickListener dailyWordsLayoutOnClick = view -> {
+        if(dailyWordsTranslate.getVisibility() == View.VISIBLE){
+            dailyWordsTranslate.setVisibility(View.GONE);
+        }else {
+            dailyWordsTranslate.setVisibility(View.VISIBLE);
+        }
+    };
+
+
+    public View.OnClickListener dailyWordsButtonOnclick = view -> {
         @SuppressLint("ShowToast")
         String s = "test";
         StudyFragmentDirections.ActionNavigationStudyToStudyInfoFragment action;
         action = StudyFragmentDirections.actionNavigationStudyToStudyInfoFragment();
         action.setTestString(s);
         Navigation.findNavController(view).navigate(action);
+    };
+
+    public SearchView.OnQueryTextListener onQueryText = new SearchView.OnQueryTextListener() {
+        //单击搜索按钮时激发该方法
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            Toast toast = Toast.makeText(mContext,"功能正在开发中！",Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+        }
+        //用户输入时激发该方法
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            return false;
+        }
     };
 
 

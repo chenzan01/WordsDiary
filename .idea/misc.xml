@@ -8,9 +8,10 @@
         <entry key="..\:/AndroidProject/WordsDiary/app/src/main/res/drawable/btn_corner_studyinfo_left.xml" value="0.145" />
         <entry key="..\:/AndroidProject/WordsDiary/app/src/main/res/drawable/btn_corner_studyinfo_right.xml" value="0.145" />
         <entry key="..\:/AndroidProject/WordsDiary/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1345" />
+        <entry key="..\:/AndroidProject/WordsDiary/app/src/main/res/font/architects_daughter.xml" value="0.2375" />
         <entry key="..\:/AndroidProject/WordsDiary/app/src/main/res/layout/activity_bottom_nav.xml" value="0.25" />
         <entry key="..\:/AndroidProject/WordsDiary/app/src/main/res/layout/fragment_book_info.xml" value="0.25" />
-        <entry key="..\:/AndroidProject/WordsDiary/app/src/main/res/layout/fragment_study.xml" value="0.24166666666666667" />
+        <entry key="..\:/AndroidProject/WordsDiary/app/src/main/res/layout/fragment_study.xml" value="0.25" />
         <entry key="..\:/AndroidProject/WordsDiary/app/src/main/res/layout/fragment_study_info.xml" value="0.25" />
         <entry key="..\:/AndroidProject/WordsDiary/app/src/main/res/layout/fragment_word_info.xml" value="0.2" />
         <entry key="..\:/AndroidProject/WordsDiary/app/src/main/res/layout/popup_wordinfo_view.xml" value="0.9457236842105263" />

@@ -8,11 +8,35 @@
     tools:context=".fragment.study.StudyFragment">
 
     <LinearLayout
+        android:id="@+id/layout_studyFragment_topBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView_user"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_profile_photo"/>
+
+        <SearchView
+            android:id="@+id/searchView_dictionary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:id="@+id/layout_studyFragment_dailyWords"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:orientation="vertical"
-        android:background="@drawable/shape_corner_dailywords"
+        android:background="@color/transparent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/btn_studyFragment"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,18 +47,14 @@
             android:id="@+id/text_studyFragment_dailyWords"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/architects_daughter"
             android:textAlignment="center"
-            android:textSize="40sp"
             android:textColor="@color/black"
-            android:fontFamily="cursive"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/text_studyFragment_dailyWords_translate"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:textSize="40sp" />
 
         <!--每日单词翻译-->
         <TextView
@@ -42,13 +62,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="10dp"
             android:textAlignment="center"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/text_studyFragment_dailyWords"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:visibility="gone"
+            />
     </LinearLayout>
 
     <Button
