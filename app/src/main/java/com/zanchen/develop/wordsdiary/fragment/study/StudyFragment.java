@@ -126,39 +126,6 @@ public class StudyFragment extends Fragment {
             action = StudyFragmentDirections.actionNavigationStudyToDictionaryFragment();
             action.setWordname(wordname);
             Navigation.findNavController(binding.getRoot()).navigate(action);
-
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try{
-//                        JSONObject json = new JSONObject();
-//                        json.put("wordname",wordname);
-//                        //http客户端
-//                        OkHttpClient client = new OkHttpClient();
-//                        //http请求
-//                        Request request = new Request.Builder()
-//                                .url("http://192.168.1.34:8080/dictionary/queryWords")
-//                                .post(RequestBody.create(MediaType.parse("application/json"),json.toString()))
-//                                .build();
-//                        //执行发送
-//                        Response response = client.newCall(request).execute();
-//                        Log.d(TAG,"发送成功！");
-//                        String result = null;
-//                        if(response.body() != null){
-//                            result = Objects.requireNonNull(response.body()).string();
-//                        }
-//                        Log.d(TAG,"result: " + result);
-//                        Message message = Message.obtain();
-//                        message.obj = result;
-//                        handler.sendMessage(message);
-//                    }catch (Exception e){
-//                        e.printStackTrace();
-//                        Log.d(TAG,"网络连接失败！");
-//                        Toast toast = Toast.makeText(mContext,"网络连接失败！",Toast.LENGTH_LONG);
-//                        toast.show();
-//                    }
-//                }
-//            }).start();
             return false;
         }
         //用户输入时激发该方法
@@ -167,19 +134,6 @@ public class StudyFragment extends Fragment {
             return false;
         }
     };
-
-    private final Handler handler = new Handler(msg -> {
-        String s = msg.obj.toString();
-        JSONObject jsonObject = JSONObject.parseObject(s);
-        Log.d(TAG,"UI: " + jsonObject);
-        dictionary.setWid((int) Objects.requireNonNull(jsonObject.get("wid")));
-        dictionary.setWordname((String) Objects.requireNonNull(jsonObject.get("wordname")));
-        dictionary.setWordpronounce_UK((String) Objects.requireNonNull(jsonObject.get("wordpronounce_UK")));
-        dictionary.setWordpronounce_US((String) Objects.requireNonNull(jsonObject.get("wordpronounce_US")));
-        dictionary.setWordmean_CN((String) Objects.requireNonNull(jsonObject.get("wordmean_CN")));
-        return false;
-    });
-
 
     @Override
     public void onDestroyView() {

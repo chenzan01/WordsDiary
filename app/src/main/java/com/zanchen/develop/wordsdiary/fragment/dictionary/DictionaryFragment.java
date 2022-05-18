@@ -10,24 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.SearchView;
+
 import android.widget.TextView;
 
-import com.zanchen.develop.wordsdiary.R;
-import com.zanchen.develop.wordsdiary.database.entity.Dictionary;
 import com.zanchen.develop.wordsdiary.databinding.FragmentDictionaryBinding;
-import com.zanchen.develop.wordsdiary.databinding.FragmentStudyBinding;
-import com.zanchen.develop.wordsdiary.databinding.FragmentStudyInfoBinding;
-import com.zanchen.develop.wordsdiary.fragment.study.studyInfo.StudyInfoFragmentArgs;
 
 public class DictionaryFragment extends Fragment {
-
     private static final String TAG = "DictionaryFragment";
 
     private DictionaryViewModel mViewModel;
@@ -51,13 +42,19 @@ public class DictionaryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        //初始化binding
         binding = FragmentDictionaryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        //获取fragment上下文
+        mContext = getContext();
+
+        //绑定UI组件
         mTextWordName = binding.textDictionaryFragmentWordname;
         mTextWordPronounceUK = binding.textDictionaryFragmentWordpronounceUK;
         mTextWordPronounceUS = binding.textDictionaryFragmentWordpronounceUS;
         mTextWordMeanCN = binding.textDictionaryFragmentWordmeanCN;
 
+        //初始化数据,传入要查询的单词
         initData(DictionaryFragmentArgs.fromBundle(getArguments()).getWordname());
         return root;
     }
@@ -78,11 +75,10 @@ public class DictionaryFragment extends Fragment {
         mWordPronounceUK.observe(getViewLifecycleOwner(),s -> mTextWordPronounceUK.setText(s));
 
         final MutableLiveData<String> mWordPronounceUS = (MutableLiveData<String>)mViewModel.getWordPronounceUS();
-        mWordPronounceUS.observe(getViewLifecycleOwner(),s -> mTextWordPronounceUK.setText(s));
+        mWordPronounceUS.observe(getViewLifecycleOwner(),s -> mTextWordPronounceUS.setText(s));
 
         final MutableLiveData<String> mWordMeanCN = (MutableLiveData<String>)mViewModel.getWordMeanCN();
         mWordMeanCN.observe(getViewLifecycleOwner(),s -> mTextWordMeanCN.setText(s));
-
     }
 
 

@@ -3,14 +3,12 @@ package com.zanchen.develop.wordsdiary.fragment.dictionary;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.alibaba.fastjson.JSONObject;
-import com.zanchen.develop.wordsdiary.database.entity.Dictionary;
 
 import java.util.Objects;
 
@@ -35,34 +33,31 @@ public class DictionaryViewModel extends ViewModel {
         mWordPronounceUS = new MutableLiveData<>();
         mWordMeanCN = new MutableLiveData<>();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    JSONObject json = new JSONObject();
-                    json.put("wordname",wordName);
-                    //http客户端
-                    OkHttpClient client = new OkHttpClient();
-                    //http请求
-                    Request request = new Request.Builder()
-                            .url("http://192.168.1.34:8080/dictionary/queryWords")
-                            .post(RequestBody.create(MediaType.parse("application/json"),json.toString()))
-                            .build();
-                    //执行发送
-                    Response response = client.newCall(request).execute();
-                    Log.d(TAG,"发送成功！");
-                    String result = null;
-                    if(response.body() != null){
-                        result = Objects.requireNonNull(response.body()).string();
-                    }
-                    Log.d(TAG,"result: " + result);
-                    Message message = Message.obtain();
-                    message.obj = result;
-                    handler.sendMessage(message);
-                }catch (Exception e){
-                    e.printStackTrace();
-                    Log.d(TAG,"网络连接失败！");
+        new Thread(() -> {
+            try{
+                JSONObject json = new JSONObject();
+                json.put("wordname",wordName);
+                //http客户端
+                OkHttpClient client = new OkHttpClient();
+                //http请求
+                Request request = new Request.Builder()
+                        .url("http://192.168.1.34:8080/dictionary/queryWords")
+                        .post(RequestBody.create(MediaType.parse("application/json"),json.toString()))
+                        .build();
+                //执行发送
+                Response response = client.newCall(request).execute();
+                Log.d(TAG,"发送成功！");
+                String result = null;
+                if(response.body() != null){
+                    result = Objects.requireNonNull(response.body()).string();
                 }
+                Log.d(TAG,"result: " + result);
+                Message message = Message.obtain();
+                message.obj = result;
+                handler.sendMessage(message);
+            }catch (Exception e){
+                e.printStackTrace();
+                Log.d(TAG,"网络连接失败！");
             }
         }).start();
     }
