@@ -109,6 +109,7 @@ public class StudyFragment extends Fragment {
     public View.OnClickListener dailyWordsButtonOnclick = view -> {
         @SuppressLint("ShowToast")
         String s = "test";
+        //跳转到StudyInfoFragment
         StudyFragmentDirections.ActionNavigationStudyToStudyInfoFragment action;
         action = StudyFragmentDirections.actionNavigationStudyToStudyInfoFragment();
         action.setTestString(s);
@@ -120,38 +121,44 @@ public class StudyFragment extends Fragment {
         //单击搜索按钮时激发该方法
         @Override
         public boolean onQueryTextSubmit(String wordname) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try{
-                        JSONObject json = new JSONObject();
-                        json.put("wordname",wordname);
-                        //http客户端
-                        OkHttpClient client = new OkHttpClient();
-                        //http请求
-                        Request request = new Request.Builder()
-                                .url("http://192.168.1.34:8080/dictionary/queryWords")
-                                .post(RequestBody.create(MediaType.parse("application/json"),json.toString()))
-                                .build();
-                        //执行发送
-                        Response response = client.newCall(request).execute();
-                        Log.d(TAG,"发送成功！");
-                        String result = null;
-                        if(response.body() != null){
-                            result = Objects.requireNonNull(response.body()).string();
-                        }
-                        Log.d(TAG,"result: " + result);
-                        Message message = Message.obtain();
-                        message.obj = result;
-                        handler.sendMessage(message);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                        Log.d(TAG,"网络连接失败！");
-                        Toast toast = Toast.makeText(mContext,"网络连接失败！",Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-                }
-            }).start();
+            //跳转到DictionaryFragment
+            StudyFragmentDirections.ActionNavigationStudyToDictionaryFragment action;
+            action = StudyFragmentDirections.actionNavigationStudyToDictionaryFragment();
+            action.setWordname(wordname);
+            Navigation.findNavController(binding.getRoot()).navigate(action);
+
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try{
+//                        JSONObject json = new JSONObject();
+//                        json.put("wordname",wordname);
+//                        //http客户端
+//                        OkHttpClient client = new OkHttpClient();
+//                        //http请求
+//                        Request request = new Request.Builder()
+//                                .url("http://192.168.1.34:8080/dictionary/queryWords")
+//                                .post(RequestBody.create(MediaType.parse("application/json"),json.toString()))
+//                                .build();
+//                        //执行发送
+//                        Response response = client.newCall(request).execute();
+//                        Log.d(TAG,"发送成功！");
+//                        String result = null;
+//                        if(response.body() != null){
+//                            result = Objects.requireNonNull(response.body()).string();
+//                        }
+//                        Log.d(TAG,"result: " + result);
+//                        Message message = Message.obtain();
+//                        message.obj = result;
+//                        handler.sendMessage(message);
+//                    }catch (Exception e){
+//                        e.printStackTrace();
+//                        Log.d(TAG,"网络连接失败！");
+//                        Toast toast = Toast.makeText(mContext,"网络连接失败！",Toast.LENGTH_LONG);
+//                        toast.show();
+//                    }
+//                }
+//            }).start();
             return false;
         }
         //用户输入时激发该方法
