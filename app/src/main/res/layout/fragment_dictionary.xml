@@ -1,33 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.dictionary.DictionaryFragment">
 
-    <TextView
-        android:id="@+id/text_dictionaryFragment_wordname"
+    <LinearLayout
+        android:id="@+id/layout_dictionaryFragment_topBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/layout_dictionaryFragment_wordName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal" />
 
-    <TextView
-        android:id="@+id/text_dictionaryFragment_wordpronounce_UK"
+    <LinearLayout
+        android:id="@+id/layout_dictionaryFragment_wordName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_dictionaryFragment_topBar"
+        app:layout_constraintBottom_toTopOf="@+id/layout_dictionaryFragment_wordpronounce_UK"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/text_dictionaryFragment_wordname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/text_dictionaryFragment_wordpronounce_US"
+    <LinearLayout
+        android:id="@+id/layout_dictionaryFragment_wordpronounce_UK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_dictionaryFragment_wordName"
+        app:layout_constraintBottom_toTopOf="@+id/layout_dictionaryFragment_wordpronounce_US"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/text_dictionaryFragment_wordpronounce_UK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/text_dictionaryFragment_wordmean_CN"
+    <LinearLayout
+        android:id="@+id/layout_dictionaryFragment_wordpronounce_US"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_dictionaryFragment_wordpronounce_UK"
+        app:layout_constraintBottom_toTopOf="@+id/layout_dictionaryFragment_wordmean_CN"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/text_dictionaryFragment_wordpronounce_US"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_dictionaryFragment_wordmean_CN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/layout_dictionaryFragment_wordpronounce_US"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/text_dictionaryFragment_wordmean_CN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
