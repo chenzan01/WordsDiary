@@ -32,7 +32,7 @@
                 android:id="@+id/imageBtn_dictionaryFragment_back"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="13dp"
                 android:layout_marginEnd="10dp"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/ic_exit"
