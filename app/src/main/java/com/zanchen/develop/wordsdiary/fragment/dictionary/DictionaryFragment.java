@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ public class DictionaryFragment extends Fragment {
     private Context mContext;
 
     //定义控件
+    private LinearLayout mLayoutBack;
     private ImageButton mImageBtnBack;
     private SearchView searchView;
     private TextView mTextWordName;
@@ -61,6 +63,7 @@ public class DictionaryFragment extends Fragment {
         mContext = getContext();
 
         //绑定UI组件
+        mLayoutBack = binding.layoutDictionaryFragmentBack;
         mImageBtnBack = binding.imageBtnDictionaryFragmentBack;
         searchView = binding.searchViewDictionary;
         mTextWordName = binding.textDictionaryFragmentWordname;
@@ -102,6 +105,7 @@ public class DictionaryFragment extends Fragment {
     }
 
     public View.OnClickListener onClickBack = v -> {
+        mLayoutBack.setBackgroundColor(Color.RED);
         //返回主页
         Navigation.findNavController(v).navigate(R.id.action_dictionaryFragment_to_navigation_study);
     };

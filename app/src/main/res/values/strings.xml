@@ -9,8 +9,8 @@
     <string name="当前词书">当前词书：</string>
     <string name="总计单词">总计单词：</string>
     <string name="已学单词">已学单词：</string>
-    <string name="学习">学习</string>
-    <string name="复习">复习</string>
+    <string name="学习">Study</string>
+    <string name="复习">Review</string>
     <string name="今日待学">今日待学：</string>
     <string name="待复习">待复习：</string>
     <string name="词书图片">词书图片</string>
