@@ -9,14 +9,22 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.zanchen.develop.wordsdiary.R;
+import com.zanchen.develop.wordsdiary.database.entity.Dictionary;
 import com.zanchen.develop.wordsdiary.databinding.FragmentDictionaryBinding;
+import com.zanchen.develop.wordsdiary.fragment.study.StudyFragmentDirections;
 
 public class DictionaryFragment extends Fragment {
     private static final String TAG = "DictionaryFragment";
@@ -26,14 +34,18 @@ public class DictionaryFragment extends Fragment {
     //定义binding
     private FragmentDictionaryBinding binding;
 
+    //定义上下文
+    private Context mContext;
+
     //定义控件
+    private ImageButton mImageBtnBack;
+    private SearchView searchView;
     private TextView mTextWordName;
     private TextView mTextWordPronounceUK;
     private TextView mTextWordPronounceUS;
     private TextView mTextWordMeanCN;
 
-    //定义上下文
-    private Context mContext;
+
 
     public static DictionaryFragment newInstance() {
         return new DictionaryFragment();
@@ -49,10 +61,18 @@ public class DictionaryFragment extends Fragment {
         mContext = getContext();
 
         //绑定UI组件
+        mImageBtnBack = binding.imageBtnDictionaryFragmentBack;
+        searchView = binding.searchViewDictionary;
         mTextWordName = binding.textDictionaryFragmentWordname;
         mTextWordPronounceUK = binding.textDictionaryFragmentWordpronounceUK;
         mTextWordPronounceUS = binding.textDictionaryFragmentWordpronounceUS;
         mTextWordMeanCN = binding.textDictionaryFragmentWordmeanCN;
+
+        //设置组件属性
+        mImageBtnBack.setOnClickListener(onClickBack);
+        searchView.setIconifiedByDefault(false);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(onQueryText);
 
         //初始化数据,传入要查询的单词
         initData(DictionaryFragmentArgs.fromBundle(getArguments()).getWordname());
@@ -80,6 +100,25 @@ public class DictionaryFragment extends Fragment {
         final MutableLiveData<String> mWordMeanCN = (MutableLiveData<String>)mViewModel.getWordMeanCN();
         mWordMeanCN.observe(getViewLifecycleOwner(),s -> mTextWordMeanCN.setText(s));
     }
+
+    public View.OnClickListener onClickBack = v -> {
+        //返回主页
+        Navigation.findNavController(v).navigate(R.id.action_dictionaryFragment_to_navigation_study);
+    };
+
+    public SearchView.OnQueryTextListener onQueryText = new SearchView.OnQueryTextListener() {
+        //单击搜索按钮时激发该方法
+        @Override
+        public boolean onQueryTextSubmit(String wordname) {
+            initData(wordname);
+            return false;
+        }
+        //用户输入时激发该方法
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            return false;
+        }
+    };
 
 
 }

@@ -68,7 +68,7 @@ public class StudyFragment extends Fragment {
         searchView = binding.searchViewDictionary;
         searchView.setSubmitButtonEnabled(true);
         searchView.setQueryHint("你想查询的单词");
-        //按钮响应事件
+        //设置控件属性
         dailyWordsLayout.setOnClickListener(dailyWordsLayoutOnClick);
         dailyWordsButton.setOnClickListener(dailyWordsButtonOnclick);
         searchView.setOnQueryTextListener(onQueryText);

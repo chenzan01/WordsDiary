@@ -35,7 +35,7 @@
                 android:id="@+id/imageButton_studyInfoFragment_book_front"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_studyinfo_plus"/>
+                />
 
 
         </LinearLayout>
@@ -53,7 +53,7 @@
                 android:id="@+id/imageButton_studyInfoFragment_book_back"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_studyinfo_back"/>
+                android:background="@drawable/ic_back"/>
 
             <LinearLayout
                 android:id="@+id/layout_studyInfoFragment_book_info"
