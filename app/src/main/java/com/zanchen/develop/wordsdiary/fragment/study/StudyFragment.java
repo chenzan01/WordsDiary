@@ -98,11 +98,6 @@ public class StudyFragment extends Fragment {
     }
 
     public View.OnClickListener dailyWordsLayoutOnClick = view -> {
-        if(dailyWordsTranslate.getVisibility() == View.VISIBLE){
-            dailyWordsTranslate.setVisibility(View.GONE);
-        }else {
-            dailyWordsTranslate.setVisibility(View.VISIBLE);
-        }
     };
 
 

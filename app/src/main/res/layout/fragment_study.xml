@@ -65,7 +65,6 @@
             android:layout_marginBottom="10dp"
             android:textAlignment="center"
             android:textSize="16sp"
-            android:visibility="gone"
             />
     </LinearLayout>
 

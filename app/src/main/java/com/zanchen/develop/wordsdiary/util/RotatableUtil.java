@@ -438,3 +438,31 @@ public class RotatableUtil implements View.OnTouchListener {
     }
 
 }
+
+
+    /**
+     * 翻牌
+     */
+//    public void cardTurnover() {
+//        if (View.VISIBLE == mImageBtnChangeBookFront.getVisibility()) {
+//            RotatableUtil rotatableUtil = new RotatableUtil.Builder(mLayoutCurrentBook)
+//                    .sides(mImageBtnChangeBookFront.getId(),mImageBtnChangeBookBack.getId())
+//                    .direction(RotatableUtil.ROTATE_Y)
+//                    .rotationCount(1)
+//                    .build();
+//            rotatableUtil.setTouchEnable(false);
+//            rotatableUtil.rotate(RotatableUtil.ROTATE_Y, -180, 1000);
+//            turnBookCardToBack(true);
+//
+//        } else if (View.VISIBLE == mImageBtnChangeBookBack.getVisibility()) {
+//            RotatableUtil rotatableUtil = new RotatableUtil.Builder(mLayoutCurrentBook)
+//                    .sides(mImageBtnChangeBookFront.getId(),mImageBtnChangeBookBack.getId())
+//                    .direction(RotatableUtil.ROTATE_Y)
+//                    .rotationCount(1)
+//                    .build();
+//            rotatableUtil.setTouchEnable(false);
+//            rotatableUtil.rotate(RotatableUtil.ROTATE_Y, 0, 1000);
+//            turnBookCardToBack(false);
+//
+//        }
+//    }

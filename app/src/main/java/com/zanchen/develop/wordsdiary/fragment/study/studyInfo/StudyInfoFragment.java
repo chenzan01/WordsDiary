@@ -32,13 +32,8 @@ public class StudyInfoFragment extends Fragment {
     private int shortAnimationDuration;
 
     private LinearLayout mLayoutCurrentBook;
-    private LinearLayout mLayoutCurrentBookFront;
-    private LinearLayout mLayoutCurrentBookBack;
     private LinearLayout mLayoutNeedStudy;
     private LinearLayout mLayoutNeedReview;
-
-    private ImageButton mImageBtnChangeBookBack;
-    private ImageButton mImageBtnChangeBookFront;
 
     private TextView mTextCurrentBook;
     private TextView mTextTotalAmount;
@@ -53,15 +48,9 @@ public class StudyInfoFragment extends Fragment {
         binding = FragmentStudyInfoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         //绑定控件
-        mLayoutCurrentBook = binding.layoutStudyInfoFragmentBook;
-        mLayoutCurrentBookFront = binding.layoutStudyInfoFragmentBookFront;
-        mLayoutCurrentBookBack = binding.layoutStudyInfoFragmentBookBack;
+        mLayoutCurrentBook = binding.layoutStudyInfoFragmentBookInfo;
         mLayoutNeedStudy = binding.layoutStudyInfoFragmentStudy;
         mLayoutNeedReview = binding.layoutStudyInfoFragmentReview;
-
-        mImageBtnChangeBookFront = binding.imageButtonStudyInfoFragmentBookFront;
-        mImageBtnChangeBookBack = binding.imageButtonStudyInfoFragmentBookBack;
-
         mTextCurrentBook = binding.textStudyInfoFragmentCurrentBook;
         mTextTotalAmount = binding.textStudyInfoFragmentTotalAmount;
         mTextStudyAmount = binding.textStudyInfoFragmentStudyAmount;
@@ -70,8 +59,6 @@ public class StudyInfoFragment extends Fragment {
         mLayoutCurrentBook.setOnClickListener(onClickCurrentBook);
         mLayoutNeedStudy.setOnClickListener(onClickNeedStudy);
         mLayoutNeedReview.setOnClickListener(onClickNeedReview);
-        mImageBtnChangeBookFront.setOnClickListener(onClickChangeBookCard);
-        mImageBtnChangeBookBack.setOnClickListener(onClickChangeBookCard);
 
         shortAnimationDuration = getResources().getInteger(android.R.integer.config_longAnimTime);
         //初始化数据
@@ -90,7 +77,7 @@ public class StudyInfoFragment extends Fragment {
         mViewModel.initViewModel();
         //从数据库获取数据
         final MutableLiveData<String> currentBook;
-        mTextCurrentBook.setText("CET-4词汇");
+        mTextCurrentBook.setText("CET-4");
 
         final MutableLiveData<String> totalAmount = (MutableLiveData<String>)mViewModel.getTotalAmount();
         totalAmount.observe(getViewLifecycleOwner(),s -> mTextTotalAmount.setText(s));
@@ -128,49 +115,6 @@ public class StudyInfoFragment extends Fragment {
         action.setTestString(s);
         Navigation.findNavController(view).navigate(action);
     };
-
-    public View.OnClickListener onClickChangeBookCard = view -> cardTurnover();
-
-    /**
-     * 翻牌
-     */
-    public void cardTurnover() {
-        if (View.VISIBLE == mImageBtnChangeBookFront.getVisibility()) {
-            RotatableUtil rotatableUtil = new RotatableUtil.Builder(mLayoutCurrentBook)
-                    .sides(mImageBtnChangeBookFront.getId(),mImageBtnChangeBookBack.getId())
-                    .direction(RotatableUtil.ROTATE_Y)
-                    .rotationCount(1)
-                    .build();
-            rotatableUtil.setTouchEnable(false);
-            rotatableUtil.rotate(RotatableUtil.ROTATE_Y, -180, 1000);
-            turnBookCardToBack(true);
-
-        } else if (View.VISIBLE == mImageBtnChangeBookBack.getVisibility()) {
-            RotatableUtil rotatableUtil = new RotatableUtil.Builder(mLayoutCurrentBook)
-                    .sides(mImageBtnChangeBookFront.getId(),mImageBtnChangeBookBack.getId())
-                    .direction(RotatableUtil.ROTATE_Y)
-                    .rotationCount(1)
-                    .build();
-            rotatableUtil.setTouchEnable(false);
-            rotatableUtil.rotate(RotatableUtil.ROTATE_Y, 0, 1000);
-            turnBookCardToBack(false);
-
-        }
-    }
-
-    private void turnBookCardToBack(boolean direction){
-        if(direction){
-            mLayoutCurrentBookFront.setVisibility(View.GONE);
-            mLayoutCurrentBookBack.setAlpha(0f);
-            mLayoutCurrentBookBack.setVisibility(View.VISIBLE);
-            mLayoutCurrentBookBack.animate().alpha(1f).setDuration(shortAnimationDuration).setListener(null);
-        }else {
-            mLayoutCurrentBookBack.setVisibility(View.GONE);
-            mLayoutCurrentBookFront.setAlpha(0f);
-            mLayoutCurrentBookFront.setVisibility(View.VISIBLE);
-            mLayoutCurrentBookFront.animate().alpha(1f).setDuration(shortAnimationDuration).setListener(null);
-        }
-    }
 
 
 

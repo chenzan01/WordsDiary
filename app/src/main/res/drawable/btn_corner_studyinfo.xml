@@ -4,8 +4,8 @@
     <item
         android:state_pressed="true">
         <shape>
-            <solid android:color="@color/lightGray"/>
-            <corners android:radius="20dp"/>
+            <solid android:color="@color/lightGrayAlpha"/>
+            <corners android:radius="5dp"/>
         </shape>
     </item>
 
@@ -13,8 +13,8 @@
     <item
         android:state_pressed="false">
         <shape>
-            <solid android:color="@color/white"/>
-            <corners android:radius="20dp"/>
+            <solid android:color="@color/whiteAlpha"/>
+            <corners android:radius="5dp"/>
         </shape>
     </item>
 </selector>
